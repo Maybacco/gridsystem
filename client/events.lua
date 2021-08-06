@@ -14,28 +14,15 @@ AddEventHandler("gridsystem:registerMarker", function (marker)
 
     marker = ParseMarker(marker, GetInvokingResource())
     if not marker then return end
-    if marker.permission and CurrentJob == nil then
-        table.insert(TempMarkerWithJob, marker)
-        return
-    end
-
-    CheckMarkerJob(marker)
     local isRegistered, chunkId, index = IsMarkerAlreadyRegistered(marker.name)
     if isRegistered then
-        if HasJob(marker) then
-            LogInfo("Updating Marker: " .. marker.name .. " Please WAIT!")
-            RegisteredMarkers[chunkId][index] = marker
-            CurrentZone = nil
-            HasAlreadyEnteredMarker = false
-        else
-            LogInfo("Removing Marker Because job changed: " .. marker.name)
-            RegisteredMarkers[chunkId][index] = nil
-        end
+        LogInfo("Updating Marker: " .. marker.name .. " Please WAIT!")
+        RegisteredMarkers[chunkId][index] = marker
+        CurrentZone = nil
+        HasAlreadyEnteredMarker = false
     else
-        if HasJob(marker) then
-            local chunk = InsertMarkerIntoGrid(marker)
-            LogSuccess("Registering Marker: " .. marker.name .. " in chunk: " .. chunk)
-        end
+        local chunk = InsertMarkerIntoGrid(marker)
+        LogSuccess("Registering Marker: " .. marker.name .. " in chunk: " .. chunk)
     end
 end)
 
@@ -77,13 +64,6 @@ AddEventHandler("gridsystem:unregisterMarker", function(markerName)
         LogInfo("Removing Marker: " .. markerName)
         RegisteredMarkers[chunkId][index] = nil
     end
-end)
-
-RegisterNetEvent("esx:setJob")
-AddEventHandler("esx:setJob", function (job)
-    CurrentJob = job
-    RemoveAllJobMarkers()
-    AddJobMarkers()
 end)
 
 

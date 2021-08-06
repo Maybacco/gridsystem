@@ -9,25 +9,10 @@ local CurrentChunks = {}
 local MarkersToCheck = {}
 RegisteredMarkers = {}
 MarkerWithJob = {}
-TempMarkerWithJob = {}
-CurrentJob = nil
 
 LetSleep = true
 local abs = math.abs
 
-CreateThread(function ()
-    while not ESX do 
-        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Wait(10)
-    end
-
-    while not ESX.IsPlayerLoaded() do
-        Wait(10)
-    end
-
-    CurrentJob = ESX.GetPlayerData().job
-    RegisterTempMarkers()
-end)
 
 CreateThread(function ()
     while true do
@@ -47,7 +32,9 @@ CreateThread(function()
         for i = 1, #CurrentChunks do
             if RegisteredMarkers[CurrentChunks[i]] then
                 for _, zone in pairs(RegisteredMarkers[CurrentChunks[i]]) do
-                    table.insert(MarkersToCheck, zone)
+                    if HasJob(zone.permission) then
+                        table.insert(MarkersToCheck, zone)
+                    end
                 end
             end
         end

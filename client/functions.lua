@@ -68,49 +68,9 @@ DrawText3D = function (x, y, z, text)
     ClearDrawOrigin()
 end
 
-CheckMarkerJob = function (marker)
-    if not marker.permission then return end
-    marker.jobGrade = tonumber(marker.jobGrade)  
-    if marker.jobGrade == nil then marker.jobGrade = 0 end 
-    if type(MarkerWithJob[marker.permission]) == "table" then
-        for i = 1, #MarkerWithJob[marker.permission] do
-            if MarkerWithJob[marker.permission][i].name == marker.name then
-                MarkerWithJob[marker.permission][i] = marker
-                return
-            end
-        end
-    else 
-        MarkerWithJob[marker.permission] = {}
-    end
-    table.insert(MarkerWithJob[marker.permission], marker)
-end
-
 HasJob = function (marker)
     if not marker.permission then return true end
-    while CurrentJob == nil do Wait(100) end
-    return (CurrentJob.name == marker.permission and CurrentJob.grade >= marker.jobGrade)
-end
-
-RemoveAllJobMarkers = function ()
-    for _,v in pairs(MarkerWithJob) do
-        for i = 1, #v do
-            local isRegistered, chunkId, index = IsMarkerAlreadyRegistered(v[i].name)
-            if isRegistered then
-                LogInfo("Removing Job Marker: " .. v[i].name)
-                RegisteredMarkers[chunkId][index] = nil
-            end
-        end
-    end
-end
-
-AddJobMarkers = function ()
-    if MarkerWithJob[CurrentJob.name] then
-        for i = 1, #MarkerWithJob[CurrentJob.name] do
-            if HasJob(MarkerWithJob[CurrentJob.name][i]) then
-                InsertMarkerIntoGrid(MarkerWithJob[CurrentJob.name][i])
-            end
-        end
-    end
+    return IsAceAllowed(marker.permission)
 end
 
 InsertMarkerIntoGrid = function (marker)

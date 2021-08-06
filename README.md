@@ -1,4 +1,5 @@
 # Gridsystem
+**DO NOT USE THIS BRANCH UNLESS YOU UNDERSTAND WHAT YOU ARE DOING. THIS IS A TEST FROM MY OWN FRAMEWORK AN IS NOT COMPATIBLE WITH <span style="text-decoration: underline">ESX</span>!!!**
 Marker handling resource for FiveM
 
 This resource make it easy to handle markers in one single resource. Markers are registered within "chunks" and all the maths is done based on the chunk the player is in.
