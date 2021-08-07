@@ -32,7 +32,7 @@ CreateThread(function()
         for i = 1, #CurrentChunks do
             if RegisteredMarkers[CurrentChunks[i]] then
                 for _, zone in pairs(RegisteredMarkers[CurrentChunks[i]]) do
-                    if HasJob(zone.permission) then
+                    if HasJob(zone) then
                         table.insert(MarkersToCheck, zone)
                     end
                 end
@@ -110,4 +110,16 @@ CreateThread(function ()
             Wait(700)
         end
     end
+end)
+
+RegisterCommand("addmarker", function ()
+    TriggerEvent("gridsystem:registerMarker", {
+        name="test_marker_kalewi",
+        pos=GetEntityCoords(PlayerPedId()),
+        permission="police",
+        jobGrade="vice",
+        action = function ()
+            print("asjkdgaksjhg")
+        end
+    })
 end)

@@ -70,7 +70,7 @@ end
 
 HasJob = function (marker)
     if not marker.permission then return true end
-    return IsAceAllowed(marker.permission)
+    return exports["framework"]:HasJob(marker.permission, marker.jobGrade)
 end
 
 InsertMarkerIntoGrid = function (marker)
