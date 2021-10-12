@@ -41,7 +41,7 @@ end)
 
 
 AddEventHandler("gridsystem:hasEnteredMarker", function (zone)
-    if #(MyCoords.xy - zone.pos.xy) < #(zone.scale.xy/2) and math.abs(MyCoords.z - zone.pos.z) < zone.scaleZ then
+    if #(MyCoords.xy - zone.pos.xy) < #(zone.size.xy/2) and math.abs(MyCoords.z - zone.pos.z) < zone.scaleZ then
         if zone.onEnter then
             local status, err = pcall(zone.onEnter)
             if not status then

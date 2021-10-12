@@ -6,7 +6,11 @@ function ParseMarker(m, invoker)
         LogMissingField('scale', m.name, invoker)
         m.scale = vector3(1.0, 1.0, 1.0)
     end
-    m.scaleZ = m.scale.z --save for later use
+    if not m.size or type(m.size) ~= 'vector3' then
+        LogMissingField('size', m.name, invoker)
+        m.size = vector3(1.0, 1.0, 1.0)
+    end
+    m.scaleZ = m.size.z --save for later use
     if type(m.drawDistance) ~= "number" then m.drawDistance = 15.0 end
 
     if not m.control or (type(m.control) ~= "string" and type(m.control) ~= "number") then m.control = Keys['E']

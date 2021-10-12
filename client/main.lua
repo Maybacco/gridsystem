@@ -68,11 +68,11 @@ CreateThread(function ()
                     DrawText3D(zone.pos.x, zone.pos.y, zone.pos.z, zone.msg)
                 else
                     if zone.type ~= -1 then
-                        DrawMarker(zone.type, zone.pos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, zone.scale.x, zone.scale.y, zone.scale.z, zone.color.r, zone.color.g, zone.color.b, 100, false, true, 2, false, nil, nil, false)
+                        DrawMarker(zone.type, zone.pos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, zone.scale.x, zone.scale.y, zone.scale.z, zone.color.r, zone.color.g, zone.color.b, 100, zone.shouldBob or false, true, 2, zone.shouldRotate or false, nil, nil, false)
                     end
                 end
                 
-                if #(MyCoords.xy - zone.pos.xy) < #(zone.scale.xy/2) and abs(MyCoords.z - zone.pos.z) < zone.scaleZ then
+                if #(MyCoords.xy - zone.pos.xy) < #(zone.size.xy/2) and abs(MyCoords.z - zone.pos.z) < zone.scaleZ then
                     isInMarker, _currentZone = true, zone
                     
                 end
