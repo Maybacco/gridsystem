@@ -13,6 +13,7 @@ First you create a table with the following params
 | `name`         | Unique name of the marker                                                                                                                                                          | string         | YES      |                              |
 | `pos`          | Position of the marker                                                                                                                                                             | vector3        | YES      |                              |
 | `scale`        | Scale of the marker                                                                                                                                                                | vector3        | NO       | ```vector3(1.5, 1.5, 1.5)``` |
+| `size`         | Size of the marker                                                                                                                                                                | vector3        | NO       | ```vector3(1.5, 1.5, 1.5)``` |
 | `msg`          | Message on the top left  when inside the marker                                                                                                                                    | string         | NO       | `NO TEXT PROVIDED`           |
 | `drawDistance` | Distance when the marker start rendering                                                                                                                                           | number         | NO       | 15.0                         |
 | `control`      | Key to press to perform action                                                                                                                                                     | string  number | NO       | 'E'                          |
@@ -23,6 +24,9 @@ First you create a table with the following params
 | `action`       | Callback function called when control key is pressed                                                                                                                               | function       | NO       | Empty function               |
 | `onEnter`      | Callback function called when entering the marker                                                                                                                                  | function       | NO       | None                         |
 | `onExit`       | Callback function called when exiting the marker                                                                                                                                   | function       | NO       | None                         |
+| `shouldBob`    | If the marker should bob (jump on its place)                                                                                                                                   | boolean       | NO       | false                         |
+| `shouldRotate` | If the marker should rotate on the spot                                                                                                                                       | boolean       | NO       | false                         |
+
 
 Example:
 ```lua
@@ -30,9 +34,12 @@ TriggerEvent('gridsystem:registerMarker', {
   name = 'a_unique_name_for_this_marker',
   pos = vector3(0.0, 0.0, 0.0),
   scale = vector3(1.5, 1.5, 1.5),
+  size = vector3(2.0, 2.0, 1.0),
   msg = 'Press ~INPUT_CONTEXT~ to do something',
   control = 'E',
   type = 20,
+  shouldBob = true,
+  shouldRotate = false,
   color = { r = 130, g = 120, b = 110 },
   action = function()
     print('This is executed when you press E in the marker')
